@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Portfolio Website</title>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">Pranav Gawande</a>
+
+        <nav>
+            <a href="index.html" class="active"> Home</a>
+            <a href="skills.html">Skills</a>
+            <a href="education.html">Education</a>
+            <a href="experience.html">Experience</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    <section class="home">
+        <div class="home-img">
+            <img src="main.jpg" alt="">
+        </div>
+        <div class="home-content">
+            <h1>Hi, It's <span>Pranav Gawande</span></h1>
+            <h3 class="typing-text">I'm a <span></span></h3>
+            <p>Computer Science student with experience building small AI and web development projects. Looking to gain practical experience, contribute to real-world projects, and continue learning in a professional environment.</p>
+            <div class="contact-info">
+                <p><i class="fa-solid fa-envelope"></i> gawandepranav27@gmail.com</p>
+                <p><i class="fa-solid fa-phone"></i> +91-8767232291</p>
+                <p><i class="fa-solid fa-location-dot"></i> Pune, Maharashtra</p>
+            </div>
+            <div class="social-icons">
+                <a href="https://github.com/pranavv00" target="_blank"><i class="fa-brands fa-github"></i></a>
+                <a href="https://leetcode.com/u/pranavvv" target="_blank"><i class="fa-solid fa-code"></i></a>
+                <a href="https://linkedin.com/in/pranav-gawande" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://x.com/pranvv27" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="mailto:gawandepranav27@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+            <a href="experience.html" class="btn">View My Work</a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h1 class="section-title">Get In Touch</h1>
+            <div class="contact-content">
+                <div class="contact-info-card">
+                    <h2>Let's Connect</h2>
+                    <p>I'm always open to discussing new opportunities, creative projects, or just having a chat about technology and development.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fa-solid fa-envelope"></i>
+                            <div>
+                                <h3>Email</h3>
+                                <p>gawandepranav27@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fa-solid fa-phone"></i>
+                            <div>
+                                <h3>Phone</h3>
+                                <p>+91-8767232291</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div>
+                                <h3>Location</h3>
+                                <p>Pune, Maharashtra, India</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="https://github.com/pranavv00" target="_blank" class="social-link">
+                            <i class="fa-brands fa-github"></i>
+                            <span>GitHub</span>
+                        </a>
+                        <a href="https://leetcode.com/u/pranavvv" target="_blank" class="social-link">
+                            <i class="fa-solid fa-code"></i>
+                            <span>LeetCode</span>
+                        </a>
+                        <a href="https://linkedin.com/in/pranav-gawande" target="_blank" class="social-link">
+                            <i class="fa-brands fa-linkedin"></i>
+                            <span>LinkedIn</span>
+                        </a>
+                        <a href="https://x.com/pranvv27" target="_blank" class="social-link">
+                            <i class="fa-brands fa-x-twitter"></i>
+                            <span>X (Twitter)</span>
+                        </a>
+                        <a href="mailto:gawandepranav27@gmail.com" class="social-link">
+                            <i class="fa-solid fa-envelope"></i>
+                            <span>Email</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <h2>Send me a message</h2>
+                    <form action="https://formspree.io/f/xldwqepa" method="POST" id="contact-form">
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="subject" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="script.js"></script>
+</body>
+</html>
