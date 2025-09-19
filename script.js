@@ -172,3 +172,165 @@ window.addEventListener('scroll', function() {
         header.style.backdropFilter = 'none';
     }
 });
+
+// Spider-Man Canvas Animation
+let dotsAnimation = null;
+
+function initDotsAnimation() {
+    const homeSection = document.querySelector('.home');
+    const canvas = document.getElementById('dotsCanvas');
+
+    if (!homeSection || !canvas) {
+        console.log('Home section or canvas not found, retrying...');
+        setTimeout(initDotsAnimation, 100);
+        return;
+    }
+
+    // Clear any existing animation
+    if (dotsAnimation) {
+        cancelAnimationFrame(dotsAnimation);
+    }
+
+    // Set canvas size
+    canvas.width = homeSection.offsetWidth;
+    canvas.height = homeSection.offsetHeight;
+    const ctx = canvas.getContext('2d');
+
+    // Initialize dots array
+    let dots = [];
+    const arrayColors = ['#eee', '#545454', '#596d91', '#bb5a68', '#696541'];
+
+    // Create initial dots (optimized for performance)
+    function createDots() {
+        dots = [];
+        for (let index = 0; index < 30; index++) { // 30 dots for good balance
+            dots.push({
+                x: Math.floor(Math.random() * canvas.width),
+                y: Math.floor(Math.random() * canvas.height),
+                size: Math.random() * 2 + 4, // Slightly smaller dots
+                color: arrayColors[Math.floor(Math.random() * 5)]
+            });
+        }
+    }
+
+    // Draw dots on canvas
+    const drawDots = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        dots.forEach(dot => {
+            ctx.fillStyle = dot.color;
+            ctx.beginPath();
+            ctx.arc(dot.x, dot.y, dot.size, 0, Math.PI * 2);
+            ctx.fill();
+        });
+    }
+
+    // Initialize dots
+    createDots();
+    drawDots();
+
+    // Mouse move event for interactive lines (optimized with throttling)
+    let mouseMoveTimeout;
+    let isMouseInHomeSection = false;
+    
+    homeSection.addEventListener('mouseenter', () => {
+        isMouseInHomeSection = true;
+    });
+    
+    homeSection.addEventListener('mouseleave', () => {
+        isMouseInHomeSection = false;
+        drawDots(); // Clear lines when mouse leaves
+    });
+    
+    homeSection.addEventListener('mousemove', (event) => {
+        // Only process mouse events when actually in the home section
+        if (!isMouseInHomeSection) return;
+        
+        // Throttle mouse move events to reduce lag
+        clearTimeout(mouseMoveTimeout);
+        mouseMoveTimeout = setTimeout(() => {
+            drawDots();
+            
+            let mouse = {
+                x: event.pageX - homeSection.getBoundingClientRect().left,
+                y: event.pageY - homeSection.getBoundingClientRect().top
+            };
+            
+            // Only draw lines for dots within a reasonable distance
+            dots.forEach(dot => {
+                let distance = Math.sqrt((mouse.x - dot.x) ** 2 + (mouse.y - dot.y) ** 2);
+                if (distance < 200) { // Reduced from 300 to 200 for better performance
+                    ctx.strokeStyle = dot.color;
+                    ctx.lineWidth = 0.5; // Thinner lines for better performance
+                    ctx.beginPath();
+                    ctx.moveTo(dot.x, dot.y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.stroke();
+                }
+            });
+        }, 16); // ~60fps throttling
+    });
+
+    // Window resize event
+    window.addEventListener('resize', () => {
+        canvas.width = homeSection.offsetWidth;
+        canvas.height = homeSection.offsetHeight;
+        createDots();
+        drawDots();
+    });
+
+    // Button click event
+    const homeButton = homeSection.querySelector('.btn');
+    if (homeButton) {
+        homeButton.addEventListener('click', () => {
+            // Add some animation effect
+            homeButton.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                homeButton.style.transform = 'scale(1)';
+            }, 150);
+        });
+    }
+
+    // Add some floating animation to dots (optimized)
+    let lastTime = 0;
+    const animationSpeed = 100; // Only animate every 100ms instead of every frame
+    
+    function animateDots(currentTime) {
+        if (currentTime - lastTime > animationSpeed) {
+            dots.forEach(dot => {
+                // Add very subtle floating motion
+                dot.x += (Math.random() - 0.5) * 0.2;
+                dot.y += (Math.random() - 0.5) * 0.2;
+                
+                // Keep dots within canvas bounds
+                if (dot.x < 0) dot.x = canvas.width;
+                if (dot.x > canvas.width) dot.x = 0;
+                if (dot.y < 0) dot.y = canvas.height;
+                if (dot.y > canvas.height) dot.y = 0;
+            });
+            
+            // Only redraw if there's no mouse interaction in the home section
+            if (!isMouseInHomeSection) {
+                drawDots();
+            }
+            
+            lastTime = currentTime;
+        }
+        
+        dotsAnimation = requestAnimationFrame(animateDots);
+    }
+
+    // Start subtle animation after a delay
+    setTimeout(() => {
+        animateDots(0);
+    }, 2000);
+}
+
+// Initialize dots animation when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initDotsAnimation();
+});
+
+// Also try to initialize after a short delay in case DOM isn't ready
+setTimeout(() => {
+    initDotsAnimation();
+}, 500);
